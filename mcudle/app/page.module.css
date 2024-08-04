@@ -35,7 +35,7 @@
   .feedbackHeader > div {
     flex: 1;
     text-align: center;
-    border: 1px solid #ddd;
+    border: 1px solid #FF8A00;
     padding: 10px;
   }
   
@@ -54,4 +54,31 @@
   .playAgainButton:hover {
     background-color: #a8642f;
   }
+
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .headerLine {
+    width: 100%; /* Match the width of the input bar */
+    max-width: 800px; /* Adjust the maximum width as needed */
+    margin: 0 auto 20px; /* Center the line and add some margin */
+    border: 0;
+    height: 1px;
+    background: #FF8A00; /* Line color */
+  }
+
+  .headerImages {
+    display: flex;
+    gap: 10px; /* Adjust the gap between images if needed */
+  }
   
+  .headerImage {
+    width: 60px; /* Adjust the size of the images */
+    height: 60px;
+  }
