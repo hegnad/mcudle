@@ -18,15 +18,15 @@
   
   .guessInput {
     width: 100%;
-    max-width: 800px; /* Increased width */
-    margin-bottom: 20px; /* Added margin for spacing */
+    max-width: 800px;
+    margin-bottom: 20px;
   }
   
   .feedbackHeader {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    max-width: 800px; /* Increased width */
+    max-width: 800px;
     margin: 20px 0;
     font-weight: bold;
     font-family: var(--default-font-family);
@@ -65,20 +65,25 @@
   }
 
   .headerLine {
-    width: 100%; /* Match the width of the input bar */
-    max-width: 800px; /* Adjust the maximum width as needed */
-    margin: 0 auto 20px; /* Center the line and add some margin */
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 20px;
     border: 0;
     height: 1px;
-    background: #FF8A00; /* Line color */
+    background: #FF8A00;
   }
 
   .headerImages {
     display: flex;
-    gap: 10px; /* Adjust the gap between images if needed */
+    gap: 10px;
   }
   
   .headerImage {
-    width: 60px; /* Adjust the size of the images */
+    width: 60px;
     height: 60px;
+    transition: opacity 0.3s ease;
+  }
+
+  .headerImage:hover {
+    opacity: 0.5;
   }

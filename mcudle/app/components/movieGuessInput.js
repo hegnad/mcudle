@@ -74,8 +74,8 @@ export default function MovieGuessInput({ movies, onGuess, disabled, gameStatus,
           disabled={disabled}
           style={{ color: 'black', flex: 1, height: '40px', borderRadius: '10px', padding: '10px' }}
         />
-        <div style={{ backgroundColor: 'grey', paddingLeft: '7px', paddingRight: '7px', borderRadius: '5px', marginLeft: '10px' }}>
-          <button onClick={clearInput} disabled={disabled} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}>
+        <div style={{ backgroundColor: '#FF8A00', paddingLeft: '7px', paddingRight: '7px', borderRadius: '5px', marginLeft: '10px' }}>
+          <button onClick={clearInput} disabled={disabled} style={{ background: 'none', border: 'none', color: '#151518', cursor: 'pointer' }}>
             X
           </button>
         </div>

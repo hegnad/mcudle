@@ -18,7 +18,7 @@ const LandingPage = () => {
                 </button>
             ) : (
                 <div className="text-center">
-                    <p>Welcome, {user.displayName} ({user.email})</p>
+                    <p>Welcome, {user.displayName} ({user.email})!</p>
     
                     <br />
                         <div className="mt-4">
@@ -34,13 +34,13 @@ const LandingPage = () => {
                                     text-center
                                     "
                             >
-                                Go to Shopping List
+                                Click here to continue to MCUDLE
                             </a>
                         </div>
 
                     <button 
                         onClick={firebaseSignOut}
-                        className="w-1/3 bg-red-500 text-white p-2 rounded mt-4"
+                        className="w-1/3 bg-red-500 text-white p-2 rounded mt-4 hover:bg-red-800"
                     >
                         Sign Out
                     </button>

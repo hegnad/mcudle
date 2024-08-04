@@ -6,6 +6,7 @@ import MovieGuessInput from '../components/movieGuessInput';
 import MovieFeedback from '../components/movieFeedback';
 import MoviePoster from '../components/moviePoster';
 import MovieList from '../components/movieList';
+import HelpModal from '../components/helpModal';
 import styles from '../page.module.css';
 import Link from 'next/link';
 
@@ -16,6 +17,7 @@ const Home = () => {
   const [guesses, setGuesses] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
   const [gameStatus, setGameStatus] = useState('');
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
 
   useEffect(() => {
     if (movies.length > 0) {
@@ -129,7 +131,12 @@ const Home = () => {
       <div className={styles.headerContainer}>
         <h1 className={styles.mainHeader}>MCUDLE</h1>
         <div className={styles.headerImages}>
-          <img src="/help.svg" alt="Help" className={styles.headerImage} />
+          <img
+            src="/help.svg"
+            alt="Help"
+            className={styles.headerImage}
+            onClick={() => setIsHelpOpen(true)} // Open the modal on click
+          />
           <Link href="/">
             <img src="/profile.svg" alt="Profile" className={styles.headerImage} />
           </Link>
@@ -169,6 +176,7 @@ const Home = () => {
           <button onClick={() => { resetGame(); document.querySelector('input').value = ''; }} className={styles.playAgainButton}>Play Again!</button>
         </div>
       )}
+      <HelpModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} />
     </div>
   );
 }
