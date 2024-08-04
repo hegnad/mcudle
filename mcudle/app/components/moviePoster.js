@@ -4,7 +4,7 @@ export default function MoviePoster({ poster, guesses, gameStatus }) {
   const hintText = () => {
     if (guesses.length === 0) {
       return "Poster hint will be revealed after 2 guesses.";
-    } else if (guesses.length === 1) {
+    } else if (guesses.length === 1 && gameStatus !== 'correct') {
       return "Poster hint will be revealed after 1 guess.";
     } else {
       return null;

@@ -27,8 +27,6 @@ const HelpModal = ({ isOpen, onClose }) => {
         <br />
         <div className={styles.helpFinalDetails}>
             <p>The poster will be revealed after 2 guesses, partially blurred, and fully revealed after the fourth/final guess or when guessed correctly.</p>
-            <br />
-            <p>A new movie is chosen every day at midnight! (EST)</p>
         </div>
       </div>
     </div>

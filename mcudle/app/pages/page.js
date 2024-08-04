@@ -173,8 +173,12 @@ const Home = () => {
       )}
       {gameStatus === 'correct' && (
         <div>
-          <button onClick={() => { resetGame(); document.querySelector('input').value = ''; }} className={styles.playAgainButton}>Play Again!</button>
-        </div>
+          <button onClick={() => { 
+            resetGame(); 
+            getRandomMovie(); 
+            document.querySelector('input').value = ''; 
+          }} className={styles.playAgainButton}>Play Again!</button>
+      </div>
       )}
       <HelpModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} />
     </div>
