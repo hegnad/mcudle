@@ -1,0 +1,26 @@
+.feedbackRow {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+    margin: 10px 0;
+    border: 1px dashed #ddd; /* This sets the default border style for the row */
+  }
+  
+  .feedbackCell {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-left: 1px solid #ddd; /* Dividing lines within each row */
+    border-right: 1px solid #ddd; /* Dividing lines within each row */
+  }
+  
+  /* Remove the left border for the first cell and right border for the last cell */
+  .feedbackCell:first-child {
+    border-left: none;
+  }
+  
+  .feedbackCell:last-child {
+    border-right: none;
+  }
+  

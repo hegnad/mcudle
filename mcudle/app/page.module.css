@@ -3,15 +3,33 @@
     flex-direction: column;
     align-items: center;
     margin: 20px;
+    font-family: var(--default-font-family);
+  }
+  
+  .mainHeader {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .posterContainer {
+    margin-bottom: 20px;
+  }
+  
+  .guessInput {
+    width: 100%;
+    max-width: 800px; /* Increased width */
+    margin-bottom: 20px; /* Added margin for spacing */
   }
   
   .feedbackHeader {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    max-width: 600px;
+    max-width: 800px; /* Increased width */
     margin: 20px 0;
     font-weight: bold;
+    font-family: var(--default-font-family);
   }
   
   .feedbackHeader > div {
@@ -21,18 +39,19 @@
     padding: 10px;
   }
   
-  .feedbackRow {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 600px;
-    margin: 10px 0;
+  .playAgainButton {
+    background-color: #BE7A3B;
+    border: 1px solid white;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    font-family: var(--default-font-family);
   }
   
-  .feedbackRow > div {
-    flex: 1;
-    text-align: center;
-    border: 1px solid #ddd;
-    padding: 10px;
+  .playAgainButton:hover {
+    background-color: #a8642f;
   }
   

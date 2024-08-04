@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function MovieGuessInput({ movies, onGuess, disabled, gameStatus }) {
+export default function MovieGuessInput({ movies, onGuess, disabled, gameStatus, className }) {
   const [userInput, setUserInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
@@ -56,28 +56,41 @@ export default function MovieGuessInput({ movies, onGuess, disabled, gameStatus 
     }
   };
 
+  const clearInput = () => {
+    setUserInput('');
+    setSuggestions([]);
+    setShowSuggestions(false);
+  };
+
   return (
-    <div>
-      <input
-        type="text"
-        value={userInput}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        placeholder="Guess the movie"
-        disabled={disabled}
-        style={{ color: 'black' }}
-      />
+    <div className={className} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+        <input
+          type="text"
+          value={userInput}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="Guess the movie"
+          disabled={disabled}
+          style={{ color: 'black', flex: 1, height: '40px', borderRadius: '10px', padding: '10px' }}
+        />
+        <div style={{ backgroundColor: 'grey', paddingLeft: '7px', paddingRight: '7px', borderRadius: '5px', marginLeft: '10px' }}>
+          <button onClick={clearInput} disabled={disabled} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}>
+            X
+          </button>
+        </div>
+      </div>
       {showSuggestions && userInput && (
-        <ul style={{ listStyleType: 'none', padding: 0 }}>
+        <ul style={{ listStyleType: 'none', padding: 0, marginTop: '5px', width: '100%' }}>
           {suggestions.map((suggestion, index) => (
             <li
               key={suggestion.id}
               onClick={() => handleClick(suggestion)}
               style={{
-                background: index === activeSuggestion ? '#ddd' : '#fff',
+                background: index === activeSuggestion ? '#45435E' : '#fff',
                 cursor: 'pointer',
                 padding: '5px',
-                color: 'black',
+                color: index === activeSuggestion ? '#fff' : '#000',
               }}
             >
               {suggestion.title}

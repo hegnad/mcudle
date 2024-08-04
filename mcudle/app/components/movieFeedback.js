@@ -1,10 +1,14 @@
-export default function MovieFeedback({ guess, feedback }) {
+import styles from './movieFeedback.module.css';
+
+export default function MovieFeedback({ guess, feedback, guessNumber }) {
+  const borderStyle = guess ? 'solid' : 'dashed';
+
   return (
-    <div className="feedbackRow">
-      <div>{guess.title}</div>
-      <div>{feedback.releaseDate === 'yellow' ? 'Close' : feedback.releaseDate === 'correct' ? 'Correct!' : 'Far'}</div>
-      <div>{feedback.userScore && feedback.userScore.includes('yellow') ? feedback.userScore.includes('down') ? 'Close (Down)' : 'Close (Up)' : feedback.userScore === 'correct' ? 'Correct!' : 'Far'}</div>
-      <div>{feedback.actors && feedback.actors.includes('yellow') ? `Close - ${feedback.actors.split(' - ')[1]}` : feedback.actors === 'correct' ? 'Correct!' : 'Far'}</div>
+    <div className={styles.feedbackRow} style={{ borderStyle }}>
+      <div className={styles.feedbackCell}>{guess ? guess.title : `Guess ${guessNumber}`}</div>
+      <div className={styles.feedbackCell}>{guess ? feedback.releaseDate : ''}</div>
+      <div className={styles.feedbackCell}>{guess ? feedback.userScore : ''}</div>
+      <div className={styles.feedbackCell}>{guess ? feedback.actors : ''}</div>
     </div>
   );
 }
