@@ -1,13 +1,10 @@
 export default function MovieFeedback({ guess, feedback }) {
-    return (
-      <div>
-        <h2>Your Guess: {guess.title}</h2>
-        <ul>
-          <li>Release Date: <span>{feedback.releaseDate === 'yellow' ? 'Close' : 'Far'}</span></li>
-          <li>TMDB User Score: <span>{feedback.userScore.includes('yellow') ? feedback.userScore.includes('down') ? 'Close (Down)' : 'Close (Up)' : 'Far'}</span></li>
-          <li>Revenue: <span>{feedback.revenue === 'yellow' ? 'Close' : 'Far'}</span></li>
-        </ul>
-      </div>
-    );
-  }
-  
+  return (
+    <div className="feedbackRow">
+      <div>{guess.title}</div>
+      <div>{feedback.releaseDate === 'yellow' ? 'Close' : feedback.releaseDate === 'correct' ? 'Correct!' : 'Far'}</div>
+      <div>{feedback.userScore && feedback.userScore.includes('yellow') ? feedback.userScore.includes('down') ? 'Close (Down)' : 'Close (Up)' : feedback.userScore === 'correct' ? 'Correct!' : 'Far'}</div>
+      <div>{feedback.actors && feedback.actors.includes('yellow') ? `Close - ${feedback.actors.split(' - ')[1]}` : feedback.actors === 'correct' ? 'Correct!' : 'Far'}</div>
+    </div>
+  );
+}

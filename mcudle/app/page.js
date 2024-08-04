@@ -1,12 +1,13 @@
 "use client";
 
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import MovieGuessInput from './components/movieGuessInput';
 import MovieFeedback from './components/movieFeedback';
 import MovieDisplay from './components/movieDisplay';
 import MoviePoster from './components/moviePoster';
 import MovieList from './components/movieList';
+import styles from './page.module.css';
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
@@ -15,10 +16,6 @@ export default function Home() {
   const [guesses, setGuesses] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
   const [gameStatus, setGameStatus] = useState('');
-
-  useEffect(() => {
-    fetchMovies();
-  }, []);
 
   useEffect(() => {
     if (movies.length > 0) {
@@ -31,39 +28,6 @@ export default function Home() {
       fetchMoviePoster(selectedMovie.id);
     }
   }, [selectedMovie]);
-
-  const fetchMovies = async () => {
-    try {
-      let allMovies = [];
-      let page = 1;
-      let totalPages = 1;
-
-      while (page <= totalPages) {
-        const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&with_genres=28&with_keywords=180547&language=en-US&page=${page}`);
-        allMovies = [...allMovies, ...response.data.results];
-        totalPages = response.data.total_pages;
-        page++;
-      }
-
-      const detailedMovies = await Promise.all(
-        allMovies.map(async movie => {
-          const movieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=keywords`);
-          return movieDetails.data;
-        })
-      );
-
-      const theatricalMovies = detailedMovies.filter(movie => {
-        const releaseDate = new Date(movie.release_date);
-        const today = new Date();
-        const isShortFilm = movie.keywords.keywords.some(keyword => keyword.name.toLowerCase() === "short film");
-        return !isShortFilm && releaseDate <= today;
-      });
-
-      setMovies(theatricalMovies);
-    } catch (error) {
-      console.error("Error fetching data from TMDB", error);
-    }
-  };
 
   const selectMovie = () => {
     const today = new Date();
@@ -100,7 +64,8 @@ export default function Home() {
   const handleGuess = (movie) => {
     if (guesses.length >= 4 || gameStatus) return;
     setGuesses([...guesses, movie]);
-    generateFeedback(movie);
+    const newFeedback = generateFeedback(movie);
+    setFeedbacks([...feedbacks, newFeedback]);
 
     if (movie.id === selectedMovie.id) {
       setGameStatus('correct');
@@ -110,7 +75,15 @@ export default function Home() {
   };
 
   const generateFeedback = (guess) => {
-    if (!selectedMovie) return;
+    if (!selectedMovie) return {};
+
+    if (guess.id === selectedMovie.id) {
+      return {
+        releaseDate: 'correct',
+        userScore: 'correct',
+        actors: 'correct',
+      };
+    }
 
     const feedback = {};
     const guessDate = new Date(guess.release_date);
@@ -122,31 +95,39 @@ export default function Home() {
     const scoreDiff = Math.abs(selectedMovie.vote_average * 10 - guess.vote_average * 10);
     feedback.userScore = scoreDiff <= 10 ? (guess.vote_average < selectedMovie.vote_average ? 'yellow down' : 'yellow up') : 'red';
 
-    const revenueDiff = Math.abs(selectedMovie.revenue - guess.revenue);
-    feedback.revenue = revenueDiff <= 100000000 ? 'yellow' : 'red';
+    const sharedActors = selectedMovie.credits.cast
+      .filter(actor => actor.name !== "Stan Lee")
+      .filter(actor => guess.credits.cast.some(guessActor => guessActor.id === actor.id && guessActor.name !== "Stan Lee"));
+    feedback.actors = sharedActors.length > 0 ? `yellow - ${sharedActors.map(actor => actor.name).join(', ')}` : 'red';
 
-    setFeedbacks([...feedbacks, feedback]);
+    return feedback;
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Marvel Cinematic Universe Movie Guessing Game</h1>
+      <MovieList setMovies={setMovies} />
       {selectedMovie ? (
         <MovieDisplay movie={selectedMovie} onChangeMovie={getRandomMovie} />
       ) : (
         <p>Loading...</p>
       )}
-      {moviePoster && guesses.length >= 2 && (
-        <MoviePoster poster={moviePoster} blurLevel={gameStatus === '' ? (guesses.length === 2 ? 50 : 20) : 0} />
-      )}
+      <MoviePoster poster={moviePoster} guesses={guesses} gameStatus={gameStatus} />
+      <br />
       <MovieGuessInput 
         movies={movies} 
         onGuess={handleGuess} 
         disabled={gameStatus !== ''} 
         gameStatus={gameStatus} 
       />
+      <div className={styles.feedbackHeader}>
+        <div>Your Guess</div>
+        <div>Release Date</div>
+        <div>TMDB User Score</div>
+        <div>Actors</div>
+      </div>
       {guesses.map((guess, index) => (
-        <MovieFeedback key={index} guess={guess} feedback={feedbacks[index]} />
+        <MovieFeedback key={index} guess={guess} feedback={feedbacks[index] || {}} />
       ))}
       {gameStatus === 'outOfGuesses' && (
         <div>
