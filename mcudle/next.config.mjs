@@ -1,4 +1,4 @@
-const { PHASE_PRODUCTION_BUILD } = require('next/constants');
+import { PHASE_PRODUCTION_BUILD } from 'next/constants.js';
 
 /**
  * @type {import('next').NextConfig}
@@ -8,7 +8,7 @@ const nextConfig = {
   swcMinify: true,
 };
 
-module.exports = (phase) => {
+export default (phase) => {
   if (phase === PHASE_PRODUCTION_BUILD) {
     // Add any additional configuration for the production build phase here
   }

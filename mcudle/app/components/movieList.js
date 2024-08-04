@@ -1,11 +1,7 @@
-import axios from 'axios';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 export default function MovieList({ setMovies }) {
-  useEffect(() => {
-    fetchMovies();
-  }, []);
-
   const fetchMovies = async () => {
     try {
       let allMovies = [];
@@ -21,7 +17,7 @@ export default function MovieList({ setMovies }) {
 
       const detailedMovies = await Promise.all(
         allMovies.map(async movie => {
-          const movieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=keywords,credits`);
+          const movieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=keywords`);
           return movieDetails.data;
         })
       );
@@ -38,6 +34,10 @@ export default function MovieList({ setMovies }) {
       console.error("Error fetching data from TMDB", error);
     }
   };
+
+  useEffect(() => {
+    fetchMovies();
+  }, [fetchMovies]);
 
   return null;
 }
