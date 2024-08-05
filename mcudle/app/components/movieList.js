@@ -17,7 +17,7 @@ export default function MovieList({ setMovies }) {
 
       const detailedMovies = await Promise.all(
         allMovies.map(async movie => {
-          const movieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=keywords`);
+          const movieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=keywords,credits`);
           return movieDetails.data;
         })
       );
