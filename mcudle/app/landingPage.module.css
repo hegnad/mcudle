@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 4px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .welcomeText {
+    text-align: center;
+  }
+  
+  .statsContainer {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .guessDistribution {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .guessItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+  }
+
+  .statsContainer h2 {
+    font-size: 32px;
+  }
+
+  .lpButton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid #FF8A00;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #151518;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+  }
+  
+  .lpButton:hover {
+    background-color: #FF8A00;
+    transform: scale(1.1);
+
+  }
+  
+  .signOutButton {
+    width: 33%;
+    background-color: #f00;
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .signOutButton:hover {
+    background-color: #a00;
+    transform: scale(1.1);
+  }
+  
+  .headerLine {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    border: 0;
+    height: 1px;
+    background: #FF8A00;
+  }
