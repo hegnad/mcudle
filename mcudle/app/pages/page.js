@@ -18,18 +18,28 @@ const Home = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [gameStatus, setGameStatus] = useState('');
   const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
 
   useEffect(() => {
-    if (movies.length > 0) {
-      getRandomMovie();
+    if (movies.length > 0 && initialLoad) {
+      selectMovie();
+      setInitialLoad(false); // Ensure this runs only once on initial load
     }
-  }, [movies]);
+  }, [movies, initialLoad]);
 
   useEffect(() => {
     if (selectedMovie) {
       fetchMoviePoster(selectedMovie.id);
     }
   }, [selectedMovie]);
+
+  const selectMovie = () => {
+    const today = new Date();
+    const startDate = new Date('2023-01-01');
+    const daysSinceStart = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+    const movieIndex = daysSinceStart % movies.length;
+    setSelectedMovie(movies[movieIndex]);
+  };
 
   const fetchMoviePoster = async (movieId) => {
     try {
@@ -47,19 +57,16 @@ const Home = () => {
   const getRandomMovie = () => {
     if (movies.length > 0) {
       const randomIndex = Math.floor(Math.random() * movies.length);
-      const randomMovie = movies[randomIndex];
-      setSelectedMovie(randomMovie);
-      fetchMoviePoster(randomMovie.id);
+      setSelectedMovie(movies[randomIndex]);
     }
-  };  
+  };
 
-  const resetAndGetNewMovie = () => {
+  const resetGame = () => {
     getRandomMovie();
     setGuesses([]);
     setFeedbacks([]);
     setGameStatus('');
     setMoviePoster('');
-    document.querySelector('input').value = '';
   };
 
   const handleGuess = (movie) => {
@@ -158,9 +165,14 @@ const Home = () => {
       {[...Array(4)].map((_, index) => (
         <MovieFeedback key={index} guess={guesses[index]} feedback={feedbacks[index] || {}} guessNumber={index + 1} />
       ))}
-      {(gameStatus === 'outOfGuesses' || gameStatus === 'correct') && (
+      {gameStatus === 'outOfGuesses' && (
         <div>
-          <button onClick={resetAndGetNewMovie} className={styles.playAgainButton}>Play Again!</button>
+          <button onClick={resetGame} className={styles.playAgainButton}>Play Again!</button>
+        </div>
+      )}
+      {gameStatus === 'correct' && (
+        <div>
+          <button onClick={() => { resetGame(); document.querySelector('input').value = ''; }} className={styles.playAgainButton}>Play Again!</button>
         </div>
       )}
       
