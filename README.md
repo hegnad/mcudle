@@ -12,3 +12,8 @@ TMDB User Score indicates your guess is within 15% of the movie.
 Shared Actors indicates the guessed movie shares one or more actors with the movie.
 
 The poster will be revealed after 2 guesses, partially blurred, and fully revealed after the fourth/final guess or when guessed correctly.
+
+Developed using Next.js (JavaScript & CSS),
+Authentication through Firebase,
+Movie Data fetched from TMDB API,
+Deployed using Vercel.
